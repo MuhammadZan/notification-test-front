@@ -1,39 +1,7 @@
-import logo from "./logo.svg";
 import "./App.css";
-import { io } from "socket.io-client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 function App() {
-  // const [socket] = useState(() =>
-  //   io("http://localhost:5000", { autoConnect: false })
-  // );
-
-  // useEffect(() => {
-  //   if(Notification.permission==="default" || Notification.permission==="denied"){
-  //     Notification.requestPermission()
-  //   }
-  //   socket.connect();
-  //   socket.on("connect", () => {
-  //     console.log("Connected to server");
-  //   });
-
-  //   socket.on("disconnect", () => {
-  //     console.log("Disconnected from server");
-  //   });
-    
-  //   socket.on("notification",(data)=>{
-  //     console.log(data)
-  //     if(Notification.permission==="granted"){
-  //       new Notification("New Notification",{
-  //         body:data.message
-  //       })
-  //     }
-  //   })
-
-  //   return () => {
-  //     socket.disconnect();
-  //   };
-  // }, [socket]);
    useEffect(() => {
      if ("serviceWorker" in navigator) {
        navigator.serviceWorker
@@ -49,13 +17,16 @@ function App() {
                    "BNZ4HSyfHTw_BuOH-7qHw5RgOQhQmneALpm2IuDdC0e66YE5urm3qKf6PBiQ473FYhbk_FzrOUEzGIgRl9o_MQ8", 
                });
 
-               await fetch("http://localhost:5000/subscribe", {
-                 method: "POST",
-                 headers: {
-                   "Content-Type": "application/json",
-                 },
-                 body: JSON.stringify(subscription),
-               });
+               await fetch(
+                 "https://notification-system-backend.vercel.app/subscribe",
+                 {
+                   method: "POST",
+                   headers: {
+                     "Content-Type": "application/json",
+                   },
+                   body: JSON.stringify(subscription),
+                 }
+               );
 
                console.log("Push subscription:", subscription);
              } else {
